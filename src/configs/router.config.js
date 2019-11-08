@@ -16,6 +16,7 @@ export const routerMap = [
         name: 'home',
         redirect: '/home/home-page',
         component: PageView,
+        meta: { title: '家' },
         children: [
           {
             path: '/home/home-page',

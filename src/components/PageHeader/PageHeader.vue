@@ -1,6 +1,6 @@
 <template>
   <div class="page-header">
-    <!-- <s-breadcrumb /> -->
+    <s-breadcrumb />
     <div class="detail">
       <div class="main" v-if="!$route.meta.hiddenHeaderContent">
          <div class="row">
@@ -14,12 +14,12 @@
 
 <script>
 
-// import Breadcrumb from '@/components/tools/Breadcrumb'
+import Breadcrumb from '@/components/tools/Breadcrumb'
 
 export default {
   name: 'PageHeader',
   components: {
-    // 's-breadcrumb': Breadcrumb
+    's-breadcrumb': Breadcrumb
   },
   props: {
     title: {
