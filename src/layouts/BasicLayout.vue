@@ -55,9 +55,7 @@
         />
       </a-layout-header>
       <a-layout-content class="home__content">
-        <div class="home__content-main">
-          <router-view />
-        </div>
+        <router-view/>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
         @cpoyRight
@@ -120,6 +118,7 @@ export default {
 
 .home__right-side {
   padding-left: 200px;
+  transition: all .2s ease-in-out;
 }
 
 .home__right-side.trigger {
@@ -161,12 +160,5 @@ export default {
 
 .home__content {
   padding-top: 64px;
-}
-
-.home__content-main {
-  margin: 24px;
-  min-height: 1360px;
-  border-radius: 2px;
-  background-color: #fff;
 }
 </style>
