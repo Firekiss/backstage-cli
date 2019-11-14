@@ -1,10 +1,13 @@
 <template>
   <a-layout id="components-layout-demo-side" style="min-height: 100vh">
-    <a-layout-sider collapsible v-model="collapsed">
+    <a-layout-sider collapsible v-model="menuCollapsed">
       <div class="logo" />
       <a-menu class="home__side-menu" 
         theme="dark" 
-        :defaultSelectedKeys="['1']" 
+        :defaultOpenKeys="defOpenKeys"
+        :defaultSelectedKeys="defSelectedKeys"
+        @click="menuItemClkHandle"
+        @openChange="menuOpenChgHandle"
         mode="inline">
         <a-menu-item key="1">
           <a-icon type="pie-chart" />
@@ -46,11 +49,11 @@
     </a-layout-sider>
     <a-layout 
       class="home__right-side" 
-      :class="{trigger: collapsed}">
+      :class="{trigger: menuCollapsed}">
       <a-layout-header class="home__fix-head">
         <a-icon
           class="home__trigger-icon"
-          :type="collapsed ? 'menu-unfold' : 'menu-fold'"
+          :type="menuCollapsed ? 'menu-unfold' : 'menu-fold'"
           @click="collapseTriggerHandler"
         />
       </a-layout-header>
@@ -65,15 +68,43 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+import {
+  SET_DEF_OPEN_KEYS,
+  SET_DEF_SELECTED_KEYS,
+  SET_MENU_COLLAPSED
+} from '@/store/constant/types'
 export default {
-  data() {
-    return {
-      collapsed: false,
-    }
+  computed: {
+    ...mapState({
+      defOpenKeys: state => state.defOpenKeys,
+      defSelectedKeys: state => state.defSelectedKeys,
+      menuCollapsed: state => state.menuCollapsed
+    })
   },
   methods: {
+    ...mapMutations([
+      SET_DEF_OPEN_KEYS,
+      SET_DEF_SELECTED_KEYS,
+      SET_MENU_COLLAPSED
+    ]),
     collapseTriggerHandler() {
-      this.collapsed = !this.collapsed
+      this.SET_MENU_COLLAPSED(!this.menuCollapsed)
+    },
+    menuItemClkHandle({ item, key, keyPath }) {
+      this.SET_DEF_SELECTED_KEYS([key])
+    },
+    menuOpenChgHandle(openKeys) {
+      this.SET_DEF_OPEN_KEYS(openKeys)
+    }
+  },
+  created() {
+    if (!this.defOpenKeys.length) {
+      this.SET_DEF_OPEN_KEYS(['sub1'])
+    }
+
+    if (!this.defSelectedKeys.length) {
+      this.SET_DEF_SELECTED_KEYS(['4'])
     }
   }
 }
@@ -137,7 +168,7 @@ export default {
   width: calc(100% - 200px);
   transition: all .2s ease-in-out;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
-  z-index: 11;
+  z-index: 999;
 }
 
 .home__right-side.trigger .home__fix-head {

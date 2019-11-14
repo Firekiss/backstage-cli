@@ -4,9 +4,9 @@
 
 export default {
   storageOptions: {
-    namespace: 'canto__', // key prefix
+    namespace: 'BS__', // key prefix
     name: 'ls', // name variable Vue.[ls] or this.[$ls],
-    storage: 'local' // storage name session, local, memory
+    storage: 'session' // storage name session, local, memory
   },
-  BASE_URL: ''
+  BASE_URL: '',
 }

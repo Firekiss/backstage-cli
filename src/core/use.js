@@ -7,4 +7,5 @@ import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.min.css'
 
 Vue.use(Antd)
+// 使用第三方浏览器数据库存储库
 Vue.use(VueStorage, config.storageOptions)
